@@ -32,3 +32,8 @@
 *.app
 
 .idea
+
+# vscode
+.ilk
+.pdb
+.code-workspace
