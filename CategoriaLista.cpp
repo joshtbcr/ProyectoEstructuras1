@@ -33,13 +33,7 @@ bool CategoriaLista::esVacia(){
     return esVacia;
 }
 
-void CategoriaLista::desplegarCategorias(){
-    NodoCategoria* aux = this->getNodoS();
-    while(aux != NULL){
-        cout<< aux->getCategoria()->getDescripcion() << endl;
-        aux = aux ->getSgte();
-    }
-};
+
 
 void CategoriaLista::agregar(string descripcion){
     NodoCategoria* nuevo =  new NodoCategoria(new Categoria(descripcion));
@@ -82,3 +76,19 @@ void CategoriaLista::eliminar(int indice){
         }
     }
 }
+
+void CategoriaLista::desplegarCategorias(){
+    NodoCategoria* aux = this->getNodoS();
+    while(aux != NULL){
+        cout<< aux->getCategoria()->getDescripcion() << endl;
+        aux = aux ->getSgte();
+    }
+};
+
+void CategoriaLista::desplegarArticulos(int indice){
+    NodoCategoria* aux = this->getNodoS();
+    while(aux != NULL){
+        cout<< aux->getCategoria()->getDescripcion() << endl;
+        aux = aux ->getSgte();
+    }
+};

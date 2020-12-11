@@ -30,5 +30,8 @@ int main()
     catLista->eliminar(3);
     catLista->desplegarCategorias();
 
+    cout <<"Probando Articulos:"<<endl;
+
+
     pauseSystem();
 }

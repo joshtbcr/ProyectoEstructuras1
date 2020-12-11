@@ -30,8 +30,8 @@ class CategoriaLista
                 //void agregarArticuloCategoria(Articulo*, string); // Punto c
                 void eliminar(int); // Punto d
                 void desplegarCategorias(); // Punto e
-                void desplegarArticulos(); // Punto f
-                
+                void desplegarArticulos(int); // Punto f
+
 
                 Categoria* dirNodo();
                 Categoria* dirUltimo();
