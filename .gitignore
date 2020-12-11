@@ -34,6 +34,6 @@
 .idea
 
 # vscode
-.ilk
-.pdb
-.code-workspace
+*.ilk
+*.pdb
+*.code-workspace
