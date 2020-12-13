@@ -1,6 +1,6 @@
 #pragma once
 #include <stdlib.h>
-#include "iostream"
+#include <iostream>
 #include "ListaArticulosXCategoria.h"
 using namespace std;
 #ifndef CATEGORIA_H
@@ -8,22 +8,19 @@ using namespace std;
 
 class Categoria
 {
-	private:
-		string descripcion;
-        ListaArticulosXCategoria* lista;
-	public:
-		Categoria();
-		Categoria(string);
-		Categoria(string, ListaArticulosXCategoria*);
-		~Categoria();
+private:
+	string descripcion;
+	ListaArticulosXCategoria* lista;
+public:
+	Categoria();
+	Categoria(string);
+	Categoria(string, ListaArticulosXCategoria*);
+	~Categoria();
 
-        ListaArticulosXCategoria* getLista();
-        void setLista(ListaArticulosXCategoria*);
+	ListaArticulosXCategoria* getLista();
+	void setLista(ListaArticulosXCategoria*);
 
-        string getDescripcion();
-        void setDescripcion(string);
-
-
-
+	string getDescripcion();
+	void setDescripcion(string);
 };
 #endif

@@ -33,6 +33,20 @@ bool CategoriaLista::esVacia(){
     return esVacia;
 }
 
+NodoCategoria* CategoriaLista::dirNodo(string descripcion){
+    NodoCategoria* aux = this->getNodoS();
+    for(int i = 1;i<=this->getLargo() && aux!=NULL;i++){
+        if(aux->getCategoria()->getDescripcion()==descripcion){
+            return aux;
+        }
+        else{
+            aux = aux->getSgte();
+        }
+    }
+    cout <<"No existe la categoria: "<< descripcion<<endl;
+    return NULL;
+}
+
 
 
 void CategoriaLista::agregar(string descripcion){
@@ -49,24 +63,22 @@ void CategoriaLista::agregar(string descripcion){
     largo++;
 }
 
-//Indice inicia en 1
-void CategoriaLista::modificarCat(int indice, string descripcion){
-    NodoCategoria* aux = this->getNodoS();
-    for(int i = 1;i<=indice && aux!=NULL;i++){
-        if(i==indice)
-            aux->getCategoria()->setDescripcion(descripcion);
-        else
-            aux = aux->getSgte();
-    }
+void CategoriaLista::modificarCat(string descripcion1, string descripcion2){
+    this->dirNodo(descripcion1)->getCategoria()->setDescripcion(descripcion2);
 }
 
-//Indice inicia en 1
-void CategoriaLista::eliminar(int indice){
+ // Punto c
+void CategoriaLista::agregarArticuloCategoria(NodoArticulo* nodoA, string descripcion){
+    this->dirNodo(descripcion)->getCategoria()->getLista()->agregarArticulo(nodoA);
+    cout<< "Articulo '"<< nodoA->getArticulo()->getNombre()<<"' agregado exitosamente a la categoria "<<descripcion<<endl;
+}
+
+void CategoriaLista::eliminar(string descripcion){
     NodoCategoria* aux = this->getNodoS();
     NodoCategoria* ant;
-    for(int i = 1;i<=indice && aux!=NULL;i++){
-        if(i==indice){
-            indice==1 ? setNodoS(aux->getSgte()) : ant->setSgte(aux->getSgte());
+    for(int i = 1;i<=this->largo && aux!=NULL;i++){
+        if(aux->getCategoria()->getDescripcion()==descripcion){
+            aux==this->getNodoS() ? setNodoS(aux->getSgte()) : ant->setSgte(aux->getSgte());
             delete aux;
             largo--;
         }
@@ -85,10 +97,6 @@ void CategoriaLista::desplegarCategorias(){
     }
 };
 
-void CategoriaLista::desplegarArticulos(int indice){
-    NodoCategoria* aux = this->getNodoS();
-    while(aux != NULL){
-        cout<< aux->getCategoria()->getDescripcion() << endl;
-        aux = aux ->getSgte();
-    }
+void CategoriaLista::desplegarArticulos(string descripcion){
+    this->dirNodo(descripcion)->getCategoria()->getLista()->desplegar();
 };

@@ -1,29 +1,29 @@
 #include "Categoria.h"
 #include "ListaArticulosXCategoria.h"
-#include "iostream"
+#include <iostream>
 using namespace std;
 
 Categoria::Categoria()
 {
-	this->lista = NULL;
+	this->lista = new ListaArticulosXCategoria();
 	this->descripcion = "";
 }
 
-Categoria::~Categoria()
-{
 
-}	
 Categoria::Categoria(string descripcion)
 {
 	this->descripcion = descripcion;
-	this->lista = NULL;
+	this->lista = new ListaArticulosXCategoria();
 }
 Categoria::Categoria(string descripcion, ListaArticulosXCategoria* lista)
 {
 	this->descripcion = descripcion;
 	this->lista = lista;
 }
+Categoria::~Categoria()
+{
 
+}	
 string Categoria::getDescripcion(){
 	return this->descripcion;
 }
