@@ -36,8 +36,6 @@ Articulo *nodoArt;
 Categoria *nodoCat;
 ListaArticulos *listaArticulos;
 CategoriaLista * categoriaLista;
-NodoArticulo *na;
-NodoCategoria *nc;
 
 int incrementalArt = 1;
 int incrementalCat = 1;
@@ -148,15 +146,21 @@ void opcionesArt() {
 }
 
 void actPrecios() {
-
+    int porcentaje = 0;
+    cout << "Por favor indique el nuevo porcentaje"<<endl;
+    cin >> porcentaje;
 }
 
 void desplegarArt() {
-
+    cout << "Articulos en inventarios" << endl;
 }
 
 void eliminarArt() {
-
+    int codigo = 0;
+    listaArticulos ->desplegar();
+    cout << "Por favor digite el codigo del articulo a eliminar" << endl;
+    cin >> codigo;
+    listaArticulos ->eliminar(codigo);
 }
 
 void modifExis() {
@@ -190,12 +194,10 @@ void agregarArt() {
 
     if (listaArticulos ->esVacia()) {
         nodoArt = new Articulo(nombre,codigo,descripcion,precio,estatus,cantidad);
-        na = new NodoArticulo(nodoArt);
-        //listaArticulos ->agregarInicio(na);
+        listaArticulos ->agregarInicio(nodoArt);
     } else {
         nodoArt = new Articulo(nombre,codigo,descripcion,precio,estatus,cantidad);
-        na = new NodoArticulo(nodoArt);
-        //listaArticulos ->agregarFinal(na);
+        listaArticulos ->agregarFinal(nodoArt);
     }
 
 }
