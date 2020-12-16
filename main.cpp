@@ -161,6 +161,7 @@ int volver() {
 }
 
 void actPrecios() {
+
     if (!listaArticulos->esVacia()) {
         int porcentaje = 0;
         cout << "Por favor indique el nuevo porcentaje"<<endl;
@@ -202,13 +203,11 @@ void modifExis() {
     if (!listaArticulos ->esVacia()) {
         int codigo;
         int cantidad;
-
         cout << "Por favor digite el codigo del producto" <<endl;
         cout << "\n" << endl;
         listaArticulos ->desplegar();
         cin >> codigo;
         NodoArticulo *aux = listaArticulos ->dirNodo(codigo);
-
         cout << "Digite la nueva cantidad del articulo"<<endl;
         cin >> cantidad;
         aux ->getArticulo()->setCantidad(cantidad);
@@ -219,6 +218,7 @@ void modifExis() {
 }
 
 void modifArt() {
+
     string nombre;
     int codigo;
     string descripcion;
@@ -232,7 +232,6 @@ void modifArt() {
         cout << "\n" << endl;
         listaArticulos ->desplegar();
         cin >> codigo;
-        cin.ignore();
         NodoArticulo *aux = listaArticulos ->dirNodo(codigo);
         cout << "Que desea modificar, por favor, seleccione la opcion con el atributo correspondiente" <<endl;
         cout << "\n" <<endl;
@@ -244,25 +243,21 @@ void modifArt() {
 
         switch (opcion) {
             case 1:
-                cin.ignore();
                 cout << "Digite el nuevo nombre del articulo"<<endl;
                 cin >> nombre;
                 aux ->getArticulo()->setNombre(nombre);
                 break;
             case 2:
-                cin.ignore();
                 cout << "Digite la nueva descripcion del articulo"<<endl;
                 cin >> descripcion;
                 aux ->getArticulo()->setDescripcion(descripcion);
                 break;
             case 3:
-                cin.ignore();
                 cout << "Digite el nuevo precio del articulo"<<endl;
                 cin >> precio;
                 aux ->getArticulo()->setPrecio(precio);
                 break;
             case 4:
-                cin.ignore();
                 cout << "Digite el nuevo estatus del articulo"<<endl;
                 cin >> estatus;
                 aux ->getArticulo()->setEstatus(estatus);
@@ -277,6 +272,7 @@ void modifArt() {
 }
 
 void agregarArt() {
+
     string nombre;
     int codigo;
     string descripcion;
@@ -286,16 +282,12 @@ void agregarArt() {
 
     cout << "Porfavor escriba el nombre del articulo" << endl;
     cin >> nombre;
-    cin.ignore();
     cout << "Porfavor escriba la descripcion del articulo" << endl;
     cin >> descripcion;
-    cin.ignore();
     cout << "Porfavor escriba el precio del articulo" << endl;
     cin >> precio;
-    cin.ignore();
     cout << "Porfavor escriba el estatus del articulo" << endl;
     cin >> estatus;
-    cin.ignore();
     cout << "Porfavor escriba la cantidad del articulo" << endl;
     cin >> cantidad;
     codigo = incrementalArt;
@@ -349,11 +341,25 @@ void desplegarArtXCat() {
 }
 
 void desplegarCat() {
-
+    if (!categoriaLista->esVacia()) {
+        cout << "Categorias" << endl;
+        cout << "\n" << endl;
+        categoriaLista->desplegarCategorias();
+    } else {
+        cout << "La lista esta vacia, por favor registre una categoria" << endl;
+    }
 }
 
 void eliminarCat() {
-
+    if (!categoriaLista ->esVacia()) {
+        string txt = "";
+        categoriaLista ->desplegarCategorias();
+        cout << "Por favor digite la descripcion de la categoria a eliminar" << endl;
+        cin >> txt;
+        categoriaLista ->eliminar(txt);
+    } else {
+        cout << "La lista está vacia, por favor, registre articulos primero" << endl;
+    }
 }
 
 void agregarArtCat() {
@@ -362,9 +368,39 @@ void agregarArtCat() {
 
 void modifNomCat() {
 
+    string descripcion;
+
+    if (!categoriaLista->esVacia()){
+        cout << "Por favor digite la descripcion de la categoria" <<endl;
+        cout << "\n" << endl;
+        categoriaLista ->desplegarCategorias();
+        cin >> descripcion;
+        NodoCategoria *aux = categoriaLista->dirNodo(descripcion);
+        cout << "Por favor digite la nueva descripcion de la categoria" <<endl;
+        cin >> descripcion;
+        cout << "Digite la nueva descripcion del articulo"<<endl;
+        cin >> descripcion;
+        aux->getCategoria()->setDescripcion(descripcion);
+    }else {
+        cout << "La lista esta vacia, por favor agregue primero categorias" << endl;
+    }
+
 }
 
 void agregarCat() {
+
+    string descripcion;
+
+    cout << "Porfavor escriba la descripcion de la categoria" << endl;
+    cin >> descripcion;
+
+    if (categoriaLista->esVacia()){
+        nodoCat = new Categoria(descripcion);
+        categoriaLista->agregar(descripcion);
+    } else {
+        nodoCat = new Categoria(descripcion);
+        categoriaLista->agregar(descripcion);
+    }
 
 }
 
@@ -405,17 +441,21 @@ void opcionesRep() {
 }
 
 void artNAgotado() {
-
+    cout << "Los articulos no agotados son los siguientes" << endl;
+    cout << "\n" << endl;
+    listaArticulos->listaNoAgotados();
 }
 
 void artAgotado() {
-
+    cout << "Los articulos agotados son los siguientes" << endl;
+    cout << "\n" << endl;
+    listaArticulos->listaAgotados();
 }
 
 void cantArtCero() {
-
+    listaArticulos->cantidadEnCero();
 }
 
 void precioInv() {
-
+    listaArticulos->precioInventario();
 }
