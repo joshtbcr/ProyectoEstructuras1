@@ -32,19 +32,18 @@ void cantArtCero();
 void artAgotado();
 void artNAgotado();
 
+int volver();
+
 Articulo *nodoArt;
 Categoria *nodoCat;
-ListaArticulos *listaArticulos;
-CategoriaLista * categoriaLista;
-NodoArticulo *na;
-NodoCategoria *nc;
+ListaArticulos *listaArticulos = new ListaArticulos();
+CategoriaLista * categoriaLista = new CategoriaLista();
 
 int incrementalArt = 1;
 int incrementalCat = 1;
 
 int main() {
-
-
+    opciones();
     return 0;
 }
 
@@ -116,27 +115,33 @@ void menuReportes() {
 
 void opcionesArt() {
     int numero = -1;
-    while (numero != 5) {
+    while (numero != 7) {
         menuArticulo();
         cin >> numero;
         switch (numero) {
             case 1:
                 agregarArt();
+                numero = volver();
                 break;
             case 2:
                 modifArt();
+                numero = volver();
                 break;
             case 3:
                 modifExis();
+                numero = volver();
                 break;
             case 4:
                 eliminarArt();
+                numero = volver();
                 break;
             case 5:
                 desplegarArt();
+                numero = volver();
                 break;
             case 6:
                 actPrecios();
+                numero = volver();
                 break;
             case 7:
                 //Salida de este menu
@@ -147,24 +152,128 @@ void opcionesArt() {
     }
 }
 
+int volver() {
+    int opcion = 0;
+    cout << "Presione 0 para volver al menu o 7 para salir" << endl;
+    cin >> opcion;
+    cin.ignore();
+    return opcion;
+}
+
 void actPrecios() {
+    if (!listaArticulos->esVacia()) {
+        int porcentaje = 0;
+        cout << "Por favor indique el nuevo porcentaje"<<endl;
+        cin >> porcentaje;
+        listaArticulos->cambiarPrecios(porcentaje);
+    } else {
+        cout << "La lista esta vacia, por favor registre un articulo" << endl;
+    }
 
 }
 
 void desplegarArt() {
+    if (!listaArticulos ->esVacia()) {
+        cout << "Articulos en inventarios" << endl;
+        cout << "\n" << endl;
+        listaArticulos ->desplegar();
+    } else {
+        cout << "La lista esta vacia, por favor registre un articulo" << endl;
+    }
 
 }
 
 void eliminarArt() {
 
+    if (!listaArticulos ->esVacia()) {
+        int codigo = 0;
+        listaArticulos ->desplegar();
+        cout << "Por favor digite el codigo del articulo a eliminar" << endl;
+        cin >> codigo;
+        listaArticulos ->eliminar(codigo);
+    } else {
+        cout << "La lista está vacia, por favor, registre articulos primero" << endl;
+    }
+
 }
 
 void modifExis() {
 
+    if (!listaArticulos ->esVacia()) {
+        int codigo;
+        int cantidad;
+
+        cout << "Por favor digite el codigo del producto" <<endl;
+        cout << "\n" << endl;
+        listaArticulos ->desplegar();
+        cin >> codigo;
+        NodoArticulo *aux = listaArticulos ->dirNodo(codigo);
+
+        cout << "Digite la nueva cantidad del articulo"<<endl;
+        cin >> cantidad;
+        aux ->getArticulo()->setCantidad(cantidad);
+    } else {
+        cout << "La lista está vacia, por favor, registre articulos primero" << endl;
+    }
+
 }
 
 void modifArt() {
+    string nombre;
+    int codigo;
+    string descripcion;
+    float precio;
+    string estatus;
+    int cantidad;
+    int opcion = 0;
 
+    if (!listaArticulos ->esVacia()){
+        cout << "Por favor digite el codigo del producto" <<endl;
+        cout << "\n" << endl;
+        listaArticulos ->desplegar();
+        cin >> codigo;
+        cin.ignore();
+        NodoArticulo *aux = listaArticulos ->dirNodo(codigo);
+        cout << "Que desea modificar, por favor, seleccione la opcion con el atributo correspondiente" <<endl;
+        cout << "\n" <<endl;
+        cout << "1. nombre" <<endl;
+        cout << "2. descripcion" <<endl;
+        cout << "3. precio" <<endl;
+        cout << "4. estatus" <<endl;
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cin.ignore();
+                cout << "Digite el nuevo nombre del articulo"<<endl;
+                cin >> nombre;
+                aux ->getArticulo()->setNombre(nombre);
+                break;
+            case 2:
+                cin.ignore();
+                cout << "Digite la nueva descripcion del articulo"<<endl;
+                cin >> descripcion;
+                aux ->getArticulo()->setDescripcion(descripcion);
+                break;
+            case 3:
+                cin.ignore();
+                cout << "Digite el nuevo precio del articulo"<<endl;
+                cin >> precio;
+                aux ->getArticulo()->setPrecio(precio);
+                break;
+            case 4:
+                cin.ignore();
+                cout << "Digite el nuevo estatus del articulo"<<endl;
+                cin >> estatus;
+                aux ->getArticulo()->setEstatus(estatus);
+                break;
+            default:
+                cout << "Entrada no valida"<<endl;
+                break;
+        }
+    } else{
+        cout << "No existen articulos, porfavor, registre uno primero"<<endl;
+    }
 }
 
 void agregarArt() {
@@ -177,12 +286,16 @@ void agregarArt() {
 
     cout << "Porfavor escriba el nombre del articulo" << endl;
     cin >> nombre;
+    cin.ignore();
     cout << "Porfavor escriba la descripcion del articulo" << endl;
     cin >> descripcion;
+    cin.ignore();
     cout << "Porfavor escriba el precio del articulo" << endl;
     cin >> precio;
+    cin.ignore();
     cout << "Porfavor escriba el estatus del articulo" << endl;
     cin >> estatus;
+    cin.ignore();
     cout << "Porfavor escriba la cantidad del articulo" << endl;
     cin >> cantidad;
     codigo = incrementalArt;
@@ -190,12 +303,10 @@ void agregarArt() {
 
     if (listaArticulos ->esVacia()) {
         nodoArt = new Articulo(nombre,codigo,descripcion,precio,estatus,cantidad);
-        na = new NodoArticulo(nodoArt);
-        //listaArticulos ->agregarInicio(na);
+        listaArticulos ->agregarInicio(nodoArt);
     } else {
         nodoArt = new Articulo(nombre,codigo,descripcion,precio,estatus,cantidad);
-        na = new NodoArticulo(nodoArt);
-        //listaArticulos ->agregarFinal(na);
+        listaArticulos ->agregarFinal(nodoArt);
     }
 
 }
