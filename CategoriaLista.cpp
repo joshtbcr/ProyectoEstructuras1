@@ -69,8 +69,13 @@ void CategoriaLista::modificarCat(string descripcion1, string descripcion2){
 
  // Punto c
 void CategoriaLista::agregarArticuloCategoria(NodoArticulo* nodoA, string descripcion){
-    this->dirNodo(descripcion)->getCategoria()->getLista()->agregarArticulo(nodoA);
-    cout<< "Articulo '"<< nodoA->getArticulo()->getNombre()<<"' agregado exitosamente a la categoria "<<descripcion<<endl;
+    NodoCategoria* cat = this->dirNodo(descripcion);
+
+    if(cat!=NULL){
+        this->dirNodo(descripcion)->getCategoria()->getLista()->agregarArticulo(nodoA);
+        //Mensaje
+        cout<< "Articulo '"<< nodoA->getArticulo()->getNombre()<<"' agregado exitosamente a la categoria "<<descripcion<<endl;
+    }
 }
 
 void CategoriaLista::eliminar(string descripcion){
@@ -98,5 +103,8 @@ void CategoriaLista::desplegarCategorias(){
 };
 
 void CategoriaLista::desplegarArticulos(string descripcion){
-    this->dirNodo(descripcion)->getCategoria()->getLista()->desplegar();
+    NodoCategoria* cat = this->dirNodo(descripcion);
+    if(cat!=NULL){
+        this->dirNodo(descripcion)->getCategoria()->getLista()->desplegar();
+    }
 };

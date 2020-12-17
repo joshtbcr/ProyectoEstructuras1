@@ -7,6 +7,15 @@
 
 using namespace std;
 
+void pauseSystem(){
+    string pause;
+    do {
+        puts("Desea cerrar? [S]");
+        cin >> pause;
+    }while(pause != "S");
+}
+
+
 void opciones();
 void menu();
 void menuArticulo();
@@ -44,6 +53,7 @@ int incrementalCat = 1;
 
 int main() {
     opciones();
+    pauseSystem();
     return 0;
 }
 
@@ -305,7 +315,7 @@ void agregarArt() {
 
 void opcionesCat() {
     int numero = -1;
-    while (numero != 5) {
+    while (numero != 7) {
         menuCat();
         cin >> numero;
         switch (numero) {
@@ -337,7 +347,11 @@ void opcionesCat() {
 }
 
 void desplegarArtXCat() {
+    cout << "Por favor ingresar nombre de categoria: ";
+    string categoria = "";
+    cin >> categoria;
 
+    categoriaLista->desplegarArticulos(categoria);
 }
 
 void desplegarCat() {
@@ -363,7 +377,14 @@ void eliminarCat() {
 }
 
 void agregarArtCat() {
+    cout << "Por favor ingresar codigo de articulo: ";
+    int codigo;
+    cin >> codigo;
+    cout << "Por favor ingresar nombre de categoria del articulo: ";
+    string categoria = "";
+    cin >> categoria;
 
+    categoriaLista->agregarArticuloCategoria(listaArticulos->dirNodo(codigo),categoria);
 }
 
 void modifNomCat() {
@@ -406,7 +427,7 @@ void agregarCat() {
 
 void opcionesRep() {
     int numero = -1;
-    while (numero != 5) {
+    while (numero != 8) {
         menuReportes();
         cin >> numero;
         switch (numero) {
